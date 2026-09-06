@@ -1,7 +1,7 @@
 # =============================================================================
 #  ~/.zshrc — Jorge Pereira
 #
-#  Source of truth: ~/src/sandbox/dotfiles/zshrc  (this file)
+#  Source of truth: ~/src/dotfiles/zshrc  (this file)
 #  ~/.zshrc is a symlink to it, so edits here take effect in new shells.
 #
 #  Layout:  PATH/env → prompt → editing → tools → aliases →
