@@ -283,12 +283,12 @@ Hooks in `settings.json` call `claude/hooks/iterm-tab.sh`, which writes the iTer
 
 | Tab color | Meaning | Set by |
 |---|---|---|
-| Orange (`#fe8019`) | Claude is alive here and idle, ready for a prompt | `SessionStart`, `Stop` |
-| Blue (`#83a598`) | Working on a turn | `UserPromptSubmit`, `PostToolUse` |
-| Red (`#fb4934`) | Blocked on you: a permission prompt or a question | `Notification`, `PreToolUse` on `AskUserQuestion` |
+| Pastel orange (`#e8a05a`) | Claude is alive here and idle, ready for a prompt | `SessionStart`, `Stop` |
+| Pale gold (`#f2d38a`) | Working on a turn | `UserPromptSubmit`, `PostToolUse` |
+| Salmon (`#f07868`) | Blocked on you: a permission prompt or a question | `Notification`, `PreToolUse` on `AskUserQuestion` |
 | Default | Claude exited | `SessionEnd` |
 
-Colors come from the Gruvbox dark palette; tune them by editing the RGB triples at the top of the script. It wraps the sequence for tmux passthrough, and is a no-op on terminals that ignore OSC 6.
+Colors are warm pastels derived from the Gruvbox dark palette; tune them by editing the RGB triples at the top of the script. It wraps the sequence for tmux passthrough, and is a no-op on terminals that ignore OSC 6.
 
 ## Neovim
 
