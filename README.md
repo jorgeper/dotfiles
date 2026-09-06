@@ -13,6 +13,7 @@ My terminal runs on [iTerm2](https://iterm2.com/) with Zsh, [Starship](https://s
 | File | Source | Description |
 |---|---|---|
 | `zshrc` | `~/.zshrc` | Zsh configuration — prompt, aliases, plugins, keybindings |
+| _(untracked)_ | `~/.zshrc.local` | Optional private overrides, sourced at the end of `zshrc` — ssh aliases, work PATHs, anything that should not be public |
 | `zprofile` | `~/.zprofile` | Zsh login profile — PATH setup for Homebrew, Python, Agency |
 | `gitignore_global` | `~/.config/git/ignore` | Global gitignore patterns |
 | `nvim/init.lua` | `~/.config/nvim/init.lua` | Neovim entry point — bootstraps lazy.nvim plugin manager |

@@ -85,3 +85,8 @@ setopt SHARE_HISTORY          # share history live across all open shells
 HISTFILE=~/.zsh_history
 HISTSIZE=10000                # commands kept in memory per session
 SAVEHIST=10000                # commands persisted to $HISTFILE
+
+# ---- Local overrides (not committed) ----------------------------------------
+# Machine-specific or private bits (ssh aliases, work PATHs, tokens) go in
+# ~/.zshrc.local so this file can stay public.
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
