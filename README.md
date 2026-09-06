@@ -21,6 +21,7 @@ My terminal runs on [iTerm2](https://iterm2.com/) with Zsh, [Starship](https://s
 | `claude/settings.json` | `~/.claude/settings.json` | Claude Code settings — model, plugins, statusline, hooks |
 | `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` | Claude Code status line — model, cwd, branch, context and rate-limit bars |
 | `claude/hooks/iterm-tab.sh` | `~/.claude/hooks/iterm-tab.sh` | Colors the iTerm2 tab by Claude Code state (see below) |
+| `claude/hooks/settings-guard.sh` | `~/.claude/hooks/settings-guard.sh` | Keeps `settings.json` symlinked and auto-commits it (see below) |
 | `claude/skills/*` | `~/.claude/skills/*` | Personal Claude Code skills (`brain`, `d2-diagrams`) |
 
 ## Zsh setup
@@ -245,6 +246,7 @@ mkdir -p ~/.claude/hooks ~/.claude/skills
 ln -sf $(pwd)/claude/settings.json ~/.claude/settings.json
 ln -sf $(pwd)/claude/statusline-command.sh ~/.claude/statusline-command.sh
 ln -sf $(pwd)/claude/hooks/iterm-tab.sh ~/.claude/hooks/iterm-tab.sh
+ln -sf $(pwd)/claude/hooks/settings-guard.sh ~/.claude/hooks/settings-guard.sh
 ln -sfn $(pwd)/claude/skills/brain ~/.claude/skills/brain
 ln -sfn $(pwd)/claude/skills/d2-diagrams ~/.claude/skills/d2-diagrams
 ```
@@ -273,7 +275,7 @@ Neovim will auto-bootstrap lazy.nvim on first launch — just let it finish inst
 
 ## Claude Code
 
-`claude/` holds the hand-edited parts of `~/.claude`. Only individual files are symlinked, because the rest of that directory is session transcripts, history, and caches that do not belong in a repo. Claude Code rewrites `settings.json` itself when you use `/model`, `/config`, or enable a plugin, so expect the repo to show that file as modified from time to time.
+`claude/` holds the hand-edited parts of `~/.claude`. Only individual files are symlinked, because the rest of that directory is session transcripts, history, and caches that do not belong in a repo. Claude Code rewrites `settings.json` itself when you use `/model`, `/config`, or enable a plugin. `claude/hooks/settings-guard.sh` runs on the `ConfigChange` and `SessionStart` hooks to handle that: if the write replaced the symlink with a plain file it moves the file back into the repo and re-links it, and it commits `claude/settings.json` whenever it changed. It never pushes.
 
 ### iTerm2 tab color by Claude state
 
