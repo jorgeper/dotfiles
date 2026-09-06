@@ -6,9 +6,10 @@
 # find the tty of the parent Claude process and write to that device.
 
 case "$1" in
-  alive|idle) rgb=(214 122 58)  ;;   # orange: Claude lives here, ready for you
-  working)    rgb=(250 200 40)  ;;   # yellow: chewing on a turn, leave it
-  waiting)    rgb=(225 60 80)   ;;   # red: blocked on a permission or question
+  # Gruvbox dark palette (matches gruvbox-dark.itermcolors in this repo).
+  alive|idle) rgb=(254 128 25)  ;;   # gruvbox orange #fe8019: Claude lives here, ready for you
+  working)    rgb=(131 165 152) ;;   # gruvbox blue   #83a598: chewing on a turn, leave it
+  waiting)    rgb=(251 73 52)   ;;   # gruvbox red    #fb4934: blocked on a permission or question
   off)        seq=$'\e]6;1;bg;*;default\a' ;;
   *)          exit 0 ;;
 esac
