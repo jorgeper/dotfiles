@@ -1,8 +1,9 @@
 #!/bin/bash
 # Set the iTerm2 tab color to reflect Claude Code's state.
 # Usage: iterm-tab.sh alive|working|idle|waiting|off
-# Called from hooks in ~/.claude/settings.json. Writes straight to the
-# terminal because hook stdout goes to Claude, not the screen.
+# Called from hooks in ~/.claude/settings.json. Hook stdout goes to Claude,
+# not the screen, and the hook process has no controlling terminal, so we
+# find the tty of the parent Claude process and write to that device.
 
 case "$1" in
   alive|idle) rgb=(214 122 58)  ;;   # orange: Claude lives here, ready for you
@@ -22,5 +23,13 @@ if [ -n "$TMUX" ]; then
   seq=$(printf '\ePtmux;%s\e\\' "${seq//$'\e'/$'\e\e'}")
 fi
 
-{ printf "%s" "$seq" > /dev/tty; } 2>/dev/null
+# Resolve the terminal: the parent's tty (Claude Code), else our own.
+ptty=$(ps -o tty= -p "$PPID" 2>/dev/null | tr -d ' ')
+if [ -n "$ptty" ] && [ "$ptty" != "??" ] && [ -w "/dev/$ptty" ]; then
+  dev="/dev/$ptty"
+else
+  dev=/dev/tty
+fi
+
+{ printf '%s' "$seq" > "$dev"; } 2>/dev/null
 exit 0

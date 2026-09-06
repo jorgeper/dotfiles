@@ -279,7 +279,7 @@ Neovim will auto-bootstrap lazy.nvim on first launch — just let it finish inst
 
 ### iTerm2 tab color by Claude state
 
-Hooks in `settings.json` call `claude/hooks/iterm-tab.sh`, which writes the iTerm2 tab-color escape sequence straight to `/dev/tty` (hook stdout goes to Claude, not the screen). The tab tells you at a glance which sessions need you:
+Hooks in `settings.json` call `claude/hooks/iterm-tab.sh`, which writes the iTerm2 tab-color escape sequence straight to the terminal device (hook stdout goes to Claude, not the screen, and the hook process has no controlling tty, so the script resolves the parent Claude process's tty and writes there). The tab tells you at a glance which sessions need you:
 
 | Tab color | Meaning | Set by |
 |---|---|---|
