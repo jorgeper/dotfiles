@@ -41,6 +41,14 @@
             "command": "~/.claude/hooks/iterm-tab.sh alive"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/settings-guard.sh"
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -111,6 +119,16 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/iterm-tab.sh off"
+          }
+        ]
+      }
+    ],
+    "ConfigChange": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/settings-guard.sh"
           }
         ]
       }
