@@ -229,8 +229,8 @@ brew install --cask docker
 ### Step 6: Clone this repo and symlink dotfiles
 
 ```sh
-git clone https://github.com/m365-core/jorgepereira.git
-cd jorgepereira/dotfiles
+git clone https://github.com/jorgeper/dotfiles.git ~/src/dotfiles
+cd ~/src/dotfiles
 
 # Zsh
 ln -sf $(pwd)/zshrc ~/.zshrc
