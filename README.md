@@ -23,6 +23,10 @@ My terminal runs on [iTerm2](https://iterm2.com/) with Zsh, [Starship](https://s
 | `claude/hooks/iterm-tab.sh` | `~/.claude/hooks/iterm-tab.sh` | Colors the iTerm2 tab by Claude Code state (see below) |
 | `claude/hooks/settings-guard.sh` | `~/.claude/hooks/settings-guard.sh` | Keeps `settings.json` symlinked and auto-commits it (see below) |
 | `claude/skills/*` | `~/.claude/skills/*` | Personal Claude Code skills (`brain`, `d2-diagrams`) |
+| `ghostty/config.ghostty` | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` | Ghostty config — theme, font, cursor |
+| `ghostty/themes/` | `~/.config/ghostty/themes/` | Custom Ghostty themes — `Gruvbox (Jorge)`, my iTerm2 colors converted |
+| `iterm2/com.googlecode.iterm2.plist` | `~/Library/Preferences/com.googlecode.iterm2.plist` | iTerm2 settings snapshot (copied, not symlinked — see below) |
+| `gruvbox-dark.itermcolors` | — | iTerm2 color preset used by the Default profile |
 
 ## Zsh setup
 
@@ -249,7 +253,14 @@ ln -sf $(pwd)/claude/hooks/iterm-tab.sh ~/.claude/hooks/iterm-tab.sh
 ln -sf $(pwd)/claude/hooks/settings-guard.sh ~/.claude/hooks/settings-guard.sh
 ln -sfn $(pwd)/claude/skills/brain ~/.claude/skills/brain
 ln -sfn $(pwd)/claude/skills/d2-diagrams ~/.claude/skills/d2-diagrams
+
+# Ghostty
+mkdir -p ~/.config/ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty"
+ln -sf $(pwd)/ghostty/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+ln -sfn $(pwd)/ghostty/themes ~/.config/ghostty/themes
 ```
+
+For iTerm2, open **Settings → General → Settings**, check **Load settings from a custom folder or URL**, and point it at `$(pwd)/iterm2`.
 
 Make sure to update `gitconfig` with your own name and email before using it.
 
@@ -289,6 +300,14 @@ Hooks in `settings.json` call `claude/hooks/iterm-tab.sh`, which writes the iTer
 | Default | Claude exited | `SessionEnd` |
 
 Colors are warm pastels derived from the Gruvbox dark palette; tune them by editing the RGB triples at the top of the script. It wraps the sequence for tmux passthrough, and is a no-op on terminals that ignore OSC 6.
+
+## Ghostty
+
+[Ghostty](https://ghostty.org/) (`brew install --cask ghostty`) is set up to look like my iTerm2: the `Gruvbox (Jorge)` theme is the `gruvbox-dark.itermcolors` palette converted to Ghostty's format, with MesloLGS Nerd Font Mono 14. To try another theme, browse them with `ghostty +list-themes` and change the `theme =` line; comment it out to get Ghostty's default colors. Reload with ⌘⇧,.
+
+## iTerm2 settings snapshot
+
+`iterm2/com.googlecode.iterm2.plist` is a copy of iTerm2's preferences, exported as XML with machine-local keys (`NoSync*`, window frames, updater state) stripped. It is not symlinked: iTerm2 replaces its prefs file when it saves, which would break a link. Refresh the snapshot by re-exporting, or let iTerm2 manage it with the custom-folder setting from step 6. The OpenAI API key for iTerm2's AI features lives in the keychain, not in this file.
 
 ## Neovim
 
