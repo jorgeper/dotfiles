@@ -1,146 +1,232 @@
 {
-  "model": "opus",
-  "hooks": {
-    "SessionStart": [
+  "agentPushNotifEnabled" : true,
+  "enabledPlugins" : {
+    "claude-md-management@claude-plugins-official" : true,
+    "code-review@claude-plugins-official" : true,
+    "context7@claude-plugins-official" : true,
+    "frontend-design@claude-plugins-official" : true,
+    "github@claude-plugins-official" : true,
+    "mattpocock-skills@mattpocock" : true,
+    "playwright@claude-plugins-official" : true,
+    "superpowers@claude-plugins-official" : true
+  },
+  "extraKnownMarketplaces" : {
+    "mattpocock" : {
+      "source" : {
+        "repo" : "mattpocock\/skills",
+        "source" : "github"
+      }
+    },
+    "sandbox-plugins" : {
+      "source" : {
+        "path" : "\/Users\/jorgeper\/src\/sandbox\/plugins",
+        "source" : "directory"
+      }
+    }
+  },
+  "hooks" : {
+    "ConfigChange" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh alive"
+            "command" : "~\/.claude\/hooks\/settings-guard.sh",
+            "type" : "command"
+          }
+        ]
+      }
+    ],
+    "Notification" : [
+      {
+        "hooks" : [
+          {
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh waiting",
+            "type" : "command"
+          }
+        ],
+        "matcher" : "permission_prompt|elicitation_dialog"
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest" : [
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse" : [
+      {
+        "hooks" : [
+          {
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh working",
+            "type" : "command"
           }
         ]
       },
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/settings-guard.sh"
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "UserPromptSubmit": [
+    "PostToolUseFailure" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh working"
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh working",
+            "type" : "command"
           }
         ]
       }
     ],
-    "PostToolUse": [
+    "PreToolUse" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh working"
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh waiting",
+            "type" : "command"
+          }
+        ],
+        "matcher" : "AskUserQuestion"
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "PostToolUseFailure": [
+    "SessionEnd" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh working"
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh off",
+            "type" : "command"
+          }
+        ]
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "PreToolUse": [
+    "SessionStart" : [
       {
-        "matcher": "AskUserQuestion",
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh waiting"
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh alive",
+            "type" : "command"
+          }
+        ]
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "~\/.claude\/hooks\/settings-guard.sh",
+            "type" : "command"
+          }
+        ]
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "Notification": [
+    "Stop" : [
       {
-        "matcher": "permission_prompt|elicitation_dialog",
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh waiting"
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh idle",
+            "type" : "command"
+          }
+        ]
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "Stop": [
+    "StopFailure" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh idle"
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "SessionEnd": [
+    "SubagentStop" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/iterm-tab.sh off"
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ],
-    "ConfigChange": [
+    "UserPromptSubmit" : [
       {
-        "hooks": [
+        "hooks" : [
           {
-            "type": "command",
-            "command": "~/.claude/hooks/settings-guard.sh"
+            "command" : "~\/.claude\/hooks\/iterm-tab.sh working",
+            "type" : "command"
+          }
+        ]
+      },
+      {
+        "hooks" : [
+          {
+            "command" : "\"\/Users\/jorgeper\/.config\/iterm2\/it2\" handle-agent-hook",
+            "type" : "command"
           }
         ]
       }
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh"
-  },
-  "enabledPlugins": {
-    "frontend-design@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "context7@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "github@claude-plugins-official": true,
-    "mattpocock-skills@mattpocock": true
-  },
-  "extraKnownMarketplaces": {
-    "sandbox-plugins": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/jorgeper/src/sandbox/plugins"
-      }
+  "model" : "opus",
+  "modelSettings" : {
+    "claude-opus-5" : {
+      "effortLevel" : "high"
     },
-    "mattpocock": {
-      "source": {
-        "source": "github",
-        "repo": "mattpocock/skills"
-      }
+    "claude-opus-5-5" : {
+      "autoCompactWindow" : 400000,
+      "effortLevel" : "high"
     }
   },
-  "modelSettings": {
-    "claude-opus-5": {
-      "effortLevel": "high"
-    },
-    "claude-opus-5-5": {
-      "effortLevel": "high",
-      "autoCompactWindow": 400000
-    }
+  "skipDangerousModePermissionPrompt" : true,
+  "statusLine" : {
+    "command" : "bash ~\/.claude\/statusline-command.sh",
+    "type" : "command"
   },
-  "tui": "fullscreen",
-  "skipDangerousModePermissionPrompt": true,
-  "theme": "dark",
-  "agentPushNotifEnabled": true
+  "theme" : "dark",
+  "tui" : "fullscreen"
 }
