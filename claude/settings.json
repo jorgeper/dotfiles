@@ -129,6 +129,16 @@
             "command": "\"/Users/jorgeper/.config/iterm2/it2\" handle-agent-hook"
           }
         ]
+      },
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/jorgeper/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "Stop": [
