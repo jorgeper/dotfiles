@@ -90,3 +90,21 @@ SAVEHIST=10000                # commands persisted to $HISTFILE
 # Machine-specific or private bits (ssh aliases, work PATHs, tokens) go in
 # ~/.zshrc.local so this file can stay public.
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# bun completions
+[ -s "/Users/jorgeper/.bun/_bun" ] && source "/Users/jorgeper/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/jorgeper/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# Unity CLI
+. "/Users/jorgeper/.unity/env"
