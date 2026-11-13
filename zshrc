@@ -107,4 +107,4 @@ esac
 # pnpm end
 
 # Unity CLI
-. "/Users/jorgeper/.unity/env"
+[ -f "$HOME/.unity/env" ] && . "$HOME/.unity/env"
