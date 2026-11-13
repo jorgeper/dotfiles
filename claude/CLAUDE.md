@@ -28,3 +28,12 @@ anything else. Rotating the key and rewriting history are my call.
 
 When you need to show me a secret's value while debugging, show only its
 first four and last four characters.
+
+## Large uploads need my OK
+
+Before a commit, push or upload that would send more than 100 MB in total,
+or any single file over 25 MB, stop and tell me first. Measure what will
+actually leave, not just the working tree: a push carries every commit not
+yet on the remote, and Git LFS pushes every version of a file in that
+history, so old versions count too. Report the total and the biggest
+contributors (which files, how many versions), and wait for me to decide.
