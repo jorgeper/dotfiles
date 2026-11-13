@@ -218,12 +218,6 @@
         "source": "github",
         "repo": "mattpocock/skills"
       }
-    },
-    "sandbox-plugins": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/jorgeper/src/sandbox/plugins"
-      }
     }
   },
   "modelSettings": {
