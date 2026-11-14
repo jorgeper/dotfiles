@@ -1,5 +1,5 @@
 {
-  "model": "opus",
+  "model": "fable",
   "hooks": {
     "ConfigChange": [
       {
@@ -235,6 +235,6 @@
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark",
-  "agentPushNotifEnabled": true,
-  "editorMode": "vim"
+  "editorMode": "vim",
+  "agentPushNotifEnabled": true
 }
