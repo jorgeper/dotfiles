@@ -1,4 +1,6 @@
-# Global guidance (applies in every project)
+# Global guidance (applies in every project, for every agent)
+
+One file, read by Claude Code, Codex and GitHub Copilot CLI. Each tool's global instructions path is a symlink to it.
 
 ## Secrets stay on this machine
 
@@ -37,3 +39,15 @@ actually leave, not just the working tree: a push carries every commit not
 yet on the remote, and Git LFS pushes every version of a file in that
 history, so old versions count too. Report the total and the biggest
 contributors (which files, how many versions), and wait for me to decide.
+
+## My brain (Codex only)
+
+This section applies to Codex. Other agents skip it.
+
+When I refer to "my brain" (e.g., "add to my brain", "search my brain", "update my brain"), use my GitHub-hosted Obsidian vault at jorgeper/brain.
+
+Before acting, load and follow the skill at .agents/skills/brain/SKILL.md from the main branch using the GitHub connector. Follow any repository instructions referenced by the skill.
+
+Use the connected GitHub tools to read, search, and commit changes as directed by the skill. Do not just describe what to do—execute the requested operation when possible.
+
+Keep the skill logic in GitHub as the single source of truth. Do not duplicate its instructions here.
