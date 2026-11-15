@@ -18,11 +18,6 @@ My terminal runs on [iTerm2](https://iterm2.com/) with Zsh, [Starship](https://s
 | `gitignore_global` | `~/.config/git/ignore` | Global gitignore patterns |
 | `nvim/init.lua` | `~/.config/nvim/init.lua` | Neovim entry point — bootstraps lazy.nvim plugin manager |
 | `nvim/lua/config/lazy.lua` | `~/.config/nvim/lua/config/lazy.lua` | Neovim plugin manager config |
-| `claude/settings.json` | `~/.claude/settings.json` | Claude Code settings — model, plugins, statusline, hooks |
-| `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` | Claude Code status line — model, cwd, branch, context and rate-limit bars |
-| `claude/hooks/iterm-tab.sh` | `~/.claude/hooks/iterm-tab.sh` | Colors the iTerm2 tab by Claude Code state (see below) |
-| `claude/hooks/settings-guard.sh` | `~/.claude/hooks/settings-guard.sh` | Keeps `settings.json` symlinked and auto-commits it (see below) |
-| `claude/skills/*` | `~/.claude/skills/*` | Personal Claude Code skills (`brain`, `d2-diagrams`) |
 | `ghostty/config.ghostty` | `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty` | Ghostty config — theme, font, cursor |
 | `ghostty/themes/` | `~/.config/ghostty/themes/` | Custom Ghostty themes — `Gruvbox (Jorge)`, my iTerm2 colors converted |
 | `iterm2/com.googlecode.iterm2.plist` | `~/Library/Preferences/com.googlecode.iterm2.plist` | iTerm2 settings snapshot (copied, not symlinked — see below) |
@@ -245,15 +240,6 @@ mkdir -p ~/.config/nvim/lua/config
 ln -sf $(pwd)/nvim/init.lua ~/.config/nvim/init.lua
 ln -sf $(pwd)/nvim/lua/config/lazy.lua ~/.config/nvim/lua/config/lazy.lua
 
-# Claude Code (link files, not the whole ~/.claude dir — it also holds sessions and history)
-mkdir -p ~/.claude/hooks ~/.claude/skills
-ln -sf $(pwd)/claude/settings.json ~/.claude/settings.json
-ln -sf $(pwd)/claude/statusline-command.sh ~/.claude/statusline-command.sh
-ln -sf $(pwd)/claude/hooks/iterm-tab.sh ~/.claude/hooks/iterm-tab.sh
-ln -sf $(pwd)/claude/hooks/settings-guard.sh ~/.claude/hooks/settings-guard.sh
-ln -sfn $(pwd)/claude/skills/brain ~/.claude/skills/brain
-ln -sfn $(pwd)/claude/skills/d2-diagrams ~/.claude/skills/d2-diagrams
-
 # Ghostty
 mkdir -p ~/.config/ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty"
 ln -sf $(pwd)/ghostty/config.ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
@@ -284,24 +270,9 @@ nvim        # Neovim with lazy.nvim
 
 Neovim will auto-bootstrap lazy.nvim on first launch — just let it finish installing.
 
-## Claude Code
+## AI agents
 
-`claude/` holds the hand-edited parts of `~/.claude`. Only individual files are symlinked, because the rest of that directory is session transcripts, history, and caches that do not belong in a repo. Claude Code rewrites `settings.json` itself when you use `/model`, `/config`, or enable a plugin. `claude/hooks/settings-guard.sh` runs on the `ConfigChange` and `SessionStart` hooks to handle that: if the write replaced the symlink with a plain file it moves the file back into the repo and re-links it, and it commits `claude/settings.json` whenever it changed. It never pushes.
-
-The global instructions for my agents (`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.copilot/copilot-instructions.md`) and my agent skills are not in this repo. They live in a separate private repo with its own install script.
-
-### iTerm2 tab color by Claude state
-
-Hooks in `settings.json` call `claude/hooks/iterm-tab.sh`, which writes the iTerm2 tab-color escape sequence straight to the terminal device (hook stdout goes to Claude, not the screen, and the hook process has no controlling tty, so the script resolves the parent Claude process's tty and writes there). The tab tells you at a glance which sessions need you:
-
-| Tab color | Meaning | Set by |
-|---|---|---|
-| Pastel orange (`#e8a05a`) | Claude is alive here and idle, ready for a prompt | `SessionStart`, `Stop` |
-| Pale gold (`#f2d38a`) | Working on a turn | `UserPromptSubmit`, `PostToolUse` |
-| Salmon (`#f07868`) | Blocked on you: a permission prompt or a question | `Notification`, `PreToolUse` on `AskUserQuestion` |
-| Default | Claude exited | `SessionEnd` |
-
-Colors are warm pastels derived from the Gruvbox dark palette; tune them by editing the RGB triples at the top of the script. It wraps the sequence for tmux passthrough, and is a no-op on terminals that ignore OSC 6.
+Nothing for AI coding agents lives in this repo. My global agent instructions and skills are in a separate private repo with its own install script, and Claude Code's settings stay local to each machine.
 
 ## Ghostty
 
