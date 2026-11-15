@@ -18,7 +18,6 @@ My terminal runs on [iTerm2](https://iterm2.com/) with Zsh, [Starship](https://s
 | `gitignore_global` | `~/.config/git/ignore` | Global gitignore patterns |
 | `nvim/init.lua` | `~/.config/nvim/init.lua` | Neovim entry point — bootstraps lazy.nvim plugin manager |
 | `nvim/lua/config/lazy.lua` | `~/.config/nvim/lua/config/lazy.lua` | Neovim plugin manager config |
-| `agents/AGENTS.md` | `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.copilot/copilot-instructions.md` | Global instructions for every agent (Claude Code, Codex, Copilot CLI) — secrets and large-upload rules, plus a Codex-only "my brain" section |
 | `claude/settings.json` | `~/.claude/settings.json` | Claude Code settings — model, plugins, statusline, hooks |
 | `claude/statusline-command.sh` | `~/.claude/statusline-command.sh` | Claude Code status line — model, cwd, branch, context and rate-limit bars |
 | `claude/hooks/iterm-tab.sh` | `~/.claude/hooks/iterm-tab.sh` | Colors the iTerm2 tab by Claude Code state (see below) |
@@ -248,21 +247,12 @@ ln -sf $(pwd)/nvim/lua/config/lazy.lua ~/.config/nvim/lua/config/lazy.lua
 
 # Claude Code (link files, not the whole ~/.claude dir — it also holds sessions and history)
 mkdir -p ~/.claude/hooks ~/.claude/skills
-ln -sf $(pwd)/agents/AGENTS.md ~/.claude/CLAUDE.md
 ln -sf $(pwd)/claude/settings.json ~/.claude/settings.json
 ln -sf $(pwd)/claude/statusline-command.sh ~/.claude/statusline-command.sh
 ln -sf $(pwd)/claude/hooks/iterm-tab.sh ~/.claude/hooks/iterm-tab.sh
 ln -sf $(pwd)/claude/hooks/settings-guard.sh ~/.claude/hooks/settings-guard.sh
 ln -sfn $(pwd)/claude/skills/brain ~/.claude/skills/brain
 ln -sfn $(pwd)/claude/skills/d2-diagrams ~/.claude/skills/d2-diagrams
-
-# Codex
-mkdir -p ~/.codex
-ln -sf $(pwd)/agents/AGENTS.md ~/.codex/AGENTS.md
-
-# GitHub Copilot CLI
-mkdir -p ~/.copilot
-ln -sf $(pwd)/agents/AGENTS.md ~/.copilot/copilot-instructions.md
 
 # Ghostty
 mkdir -p ~/.config/ghostty "$HOME/Library/Application Support/com.mitchellh.ghostty"
@@ -298,15 +288,7 @@ Neovim will auto-bootstrap lazy.nvim on first launch — just let it finish inst
 
 `claude/` holds the hand-edited parts of `~/.claude`. Only individual files are symlinked, because the rest of that directory is session transcripts, history, and caches that do not belong in a repo. Claude Code rewrites `settings.json` itself when you use `/model`, `/config`, or enable a plugin. `claude/hooks/settings-guard.sh` runs on the `ConfigChange` and `SessionStart` hooks to handle that: if the write replaced the symlink with a plain file it moves the file back into the repo and re-links it, and it commits `claude/settings.json` whenever it changed. It never pushes.
 
-`agents/AGENTS.md` is the one set of global rules for every agent (secrets, large uploads), followed by a Codex-only "my brain" section. Each tool reads its global instructions from a different path, so all three paths are symlinks to this file:
-
-| Agent | Global instructions path |
-|---|---|
-| Claude Code | `~/.claude/CLAUDE.md` |
-| Codex | `~/.codex/AGENTS.md` |
-| GitHub Copilot CLI | `~/.copilot/copilot-instructions.md` |
-
-Change a rule once, in `agents/AGENTS.md`.
+The global instructions for my agents (`~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.copilot/copilot-instructions.md`) and my agent skills are not in this repo. They live in a separate private repo with its own install script.
 
 ### iTerm2 tab color by Claude state
 
