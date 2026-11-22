@@ -1,0 +1,25 @@
+# Graphite: Herdr's built-in dark theme, for Ghostty.
+# Background, foreground and the six main colors are sampled from Herdr;
+# black, grey and the bright variants are filled in to match.
+background = #17191d
+foreground = #d2d4da
+cursor-color = #d2d4da
+selection-background = #264f78
+selection-foreground = #e6e7e9
+
+palette = 0=#2a2d32
+palette = 1=#dc8c95
+palette = 2=#a6bd91
+palette = 3=#d8be87
+palette = 4=#97b2d7
+palette = 5=#b5a2ce
+palette = 6=#8cbdc3
+palette = 7=#d2d4da
+palette = 8=#5c6168
+palette = 9=#dc8c95
+palette = 10=#a6bd91
+palette = 11=#d8be87
+palette = 12=#97b2d7
+palette = 13=#b5a2ce
+palette = 14=#8cbdc3
+palette = 15=#e6e7e9

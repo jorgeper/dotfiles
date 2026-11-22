@@ -1,5 +1,7 @@
-# Ghostty config. Colors and font match my iTerm2 "Default" profile.
-theme = Gruvbox (Jorge)
+# Ghostty config. Font matches my iTerm2 "Default" profile.
+# Colors: Graphite, Herdr's dark theme (themes/Graphite).
+# Previous theme, kept in themes/: Gruvbox (Jorge), matching iTerm2 "Default".
+theme = Graphite
 font-family = MesloLGS Nerd Font Mono
 font-size = 14
 cursor-style-blink = false
